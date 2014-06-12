@@ -5,7 +5,7 @@ Notes taken during setup of HP Helion OpenStack (Community Edition).
 
 Introduction
 --
-[HP Helion OpenStack](https://helion.hpwsportal.com/) is an OpenStack distribution that utilizes the TripleO program to install, upgrade and opnerate the cloud environment.
+[HP Helion OpenStack](https://helion.hpwsportal.com/) is an OpenStack distribution that utilizes the TripleO program to install, upgrade and operate the cloud environment.
 
 TripleO (OpenStack on OpenStack) uses OpenStack to deploy OpenStack on hardware servers (bare metal). Since OpenStack has ability to provision machines (eg: deploy Operating System to VM and configure its storage and networking), TripleO leverages these tools (nova, neutron, glance, heat etc) to deploy the actual hardware infrastructure hosting the OpenStack cloud. Nova with [Ironic](https://wiki.openstack.org/wiki/Ironic) provide the ability to provision software images onto real hardware. [Heat](https://wiki.openstack.org/wiki/Heat) provides the orchestration engine to launch the various OpenStack services based on a template file. For example, we can provide a Heat template which describes an OpenStack deployment that composes of 2 nodes swift, 3 nodes KVM compute and a single OpenStack controller. With TripleO, we are re-using the same OpenStack components and tools (nova, glance & heat) to deploy OpenStack onto hardware. You can find out more from this [TripleO Lightning Talk].
 
@@ -104,7 +104,7 @@ Id    Name                           State
 ```
 
 ####Validating the bridging interface
-The seed host needs to bridge the **seed VM** to the physcial network so that it could reach all the bare metal servers. Without this bridging of *brbm* bridge to a phyiscal interface *eth0*, the bare metal servers cannot pxe boot and install the undercloud/overcloud.
+The seed host needs to bridge the **seed VM** to the physical network so that it could reach all the bare metal servers. Without this bridging of *brbm* bridge to a physical interface *eth0*, the bare metal servers cannot pxe boot and install the undercloud/overcloud.
 
 ```sh
 ## issue this command in the seed host
