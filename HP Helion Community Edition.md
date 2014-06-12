@@ -54,7 +54,7 @@ To bridge the network between the **seed** VM and bare metal servers, an openvsw
 
 
 ###Theory of Operation
-Install the supported OS (eg: Ubuntu 13.10/14.04) on the seed host. The first command of the installer script (`hp_ced_start_seed.sh`) will create the **seed** VM and bridge it to the physical network port on the seed host. The **seed VM** is a hLinux VM with Keystone, Glance (to store the undercloud image), Nova, Ironic, Heat and Nuetron. It is an all-in-one OpenStack for the purpose of deploying the **undercloud** node.
+Install the supported OS (eg: Ubuntu 13.10/14.04) on the seed host. The first command of the installer script (`hp_ced_start_seed.sh`) will create the **seed** VM and bridge it to the physical network port on the seed host. The **seed VM** is a hLinux VM with Keystone, Glance (to store the undercloud image), Nova, Ironic, Heat and Neutron. It is an all-in-one OpenStack for the purpose of deploying the **undercloud** node.
 
 Once the **seed** VM is booted and ready, we issue a second command (`hp_ced_installer.sh`) in the **seed** VM to start the deployment of **undercloud** and **overcloud**. This process will start by uploading the **undercloud** image to glance repository. This is followed by HEAT deploying the **undercloud** image to a bare metal server. All *overcloud* and *undercloud* servers will run HP hLinux. The first entry from the baremetal file, _baremetal.csv_ will be selected and it will be powered on via IPMI. This server then proceed to pxe boot over the network. After the server is booted up, it will use iscsi to mount the **undercloud** image from the **seed** VM and write it to the local disk. Finally, the server will reboot to local disk to become the **undercloud** node.
 
@@ -123,7 +123,7 @@ ce83871a-9a58-4df1-96cf-7143b5df1c91
 ## Deploying the UnderCloud and OverCloud
 
 ### Login to the Seed VM
-The seed VM has two network interfaces, the first port, eth0 is connected to the openvswith bridge *brbm* with the IP address 192.168.122.x, while the second port eth1 is connected to the 
+The seed VM has two network interfaces, the first port, eth0 is connected to the openvswith bridge *brbm* with the IP address 192.168.122.x, while the second port eth1 is connected to the IPMI network with the IP address 192.0.2.1
 
 ```sh
 ## issue this command in the seed host
@@ -132,7 +132,7 @@ ssh 192.0.2.1
 Once you are in the **seed** VM, you will see the _root@hLInux_ prompt.
 
 
-you can monitor the OpenStack configuration of this **seed** VM by using the `tail -f` command. You should see that the _os-refresh-config_ process. Once it is done, you will see *Completed phase migration* in the *os-collect-config.log* file.
+you can monitor the OpenStack configuration of this **seed** VM by using the `tail -f` command on the *os-collect-config.log* log file. You should see that the _os-refresh-config_ process. Once it is done, you will see *Completed phase migration* in the *os-collect-config.log* file.
 
 ```sh
 ## issue this command in the seed VM
